@@ -14,3 +14,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background: rgb(34, 34, 34);
+  height: 100vh;
+}
