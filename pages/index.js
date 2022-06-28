@@ -6,7 +6,7 @@ import { get } from "axios";
 import { getDataSucc } from "../store/action";
 import classes from "../styles/Home.module.css";
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const apiKey = process.env.NEXT_PUBLIC_TMDB_APIKEY;
   const resp = await get(
     `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=a&page=1&include_adult=false`
