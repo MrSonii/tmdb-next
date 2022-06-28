@@ -1,6 +1,6 @@
 import { get } from "axios";
 
-import styles from "./details.module.css";
+import styles from "../../styles/details.module.css";
 
 export const getServerSideProps = async ({ params }) => {
   const id = params.details;
