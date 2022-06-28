@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { get } from "axios";
+import Image from "next/image";
 
-import { getDataSucc } from "../store/action";
 import classes from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
@@ -22,14 +20,6 @@ export const getServerSideProps = async () => {
 };
 
 export default function Home({ results }) {
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getDataSucc(results));
-  // }, []);
-
-  // const apiData = useSelector((state) => state.dataReducer.data);
-
   return (
     results && (
       <nav className={classes.navBar}>
@@ -38,11 +28,16 @@ export default function Home({ results }) {
             return (
               <Link key={data.id} href={`./pageDetail/${data.id}`}>
                 <li data-all={JSON.stringify(data)} className={classes.li}>
-                  <img
-                    className={classes.poster}
-                    src={`https://image.tmdb.org/t/p/w220_and_h330_face${data.poster_path}`}
-                    alt={data.original_title}
-                  />
+                  <div className={classes.poster}>
+                    <Image
+                      src={`https://image.tmdb.org/t/p/w220_and_h330_face${data.poster_path}`}
+                      alt={data.original_title}
+                      // layout="fill"
+                      width={1000}
+                      height={1500}
+                    />
+                  </div>
+
                   <p>{data.original_title}</p>
                   <p>Rating: {data.vote_average}</p>
                 </li>

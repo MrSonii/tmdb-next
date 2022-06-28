@@ -18,11 +18,14 @@
   flex-basis: 14%;
   margin: 10px 10px;
   color: rgb(168, 167, 167);
+  /* border: 1px solid; */
 }
 
 .poster {
   border-radius: 15px;
   max-width: 100%;
+  overflow: hidden;
+  /* border: 1px solid; */
 }
 
 .font_l {
