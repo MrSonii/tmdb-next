@@ -1,24 +1,40 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { get } from "axios";
 
-import { getData } from "../store/action";
+import { getData, getDataSucc } from "../store/action";
 import classes from "../styles/Home.module.css";
 
-export default function Home() {
-  const dispatch = useDispatch();
-  const apiData = useSelector((state) => state.dataReducer.data);
+export const getStaticProps = async () => {
+  const apiKey = process.env.NEXT_PUBLIC_TMDB_APIKEY;
+  const resp = await get(
+    `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=a&page=1&include_adult=false`
+  );
 
-  console.log(apiData);
+  const { results } = resp.data;
+
+  return {
+    props: {
+      results,
+    },
+  };
+};
+
+export default function Home({ results }) {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getData());
+    dispatch(getDataSucc(results));
   }, []);
 
+  const apiData = useSelector((state) => state.dataReducer.data);
+
   return (
-    apiData.results && (
+    apiData && (
       <nav className={classes.navBar}>
         <ul className={classes.ul}>
-          {apiData.results.map((data) => {
+          {apiData.map((data) => {
             return (
               <Link key={data.id} href={`./pageDetail/${data.id}`}>
                 <li data-all={JSON.stringify(data)} className={classes.li}>

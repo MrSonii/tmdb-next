@@ -3,7 +3,7 @@ import * as types from "./types.js";
 const initState = {
   error: {},
   loading: false,
-  data: {},
+  data: undefined,
 };
 
 export const dataReducer = (state = initState, { type, payload }) => {
