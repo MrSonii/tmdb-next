@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { get } from "axios";
 
-import { getData, getDataSucc } from "../store/action";
+import { getDataSucc } from "../store/action";
 import classes from "../styles/Home.module.css";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const apiKey = process.env.NEXT_PUBLIC_TMDB_APIKEY;
   const resp = await get(
     `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=a&page=1&include_adult=false`
