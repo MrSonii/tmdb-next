@@ -24,17 +24,17 @@ export const getServerSideProps = async () => {
 export default function Home({ results }) {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getDataSucc(results));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getDataSucc(results));
+  // }, []);
 
-  const apiData = useSelector((state) => state.dataReducer.data);
+  // const apiData = useSelector((state) => state.dataReducer.data);
 
   return (
-    apiData && (
+    results && (
       <nav className={classes.navBar}>
         <ul className={classes.ul}>
-          {apiData.map((data) => {
+          {results.map((data) => {
             return (
               <Link key={data.id} href={`./pageDetail/${data.id}`}>
                 <li data-all={JSON.stringify(data)} className={classes.li}>
