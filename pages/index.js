@@ -24,17 +24,21 @@ function setCookie(key, value) {
   }
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
   const apiKey = process.env.NEXT_PUBLIC_TMDB_APIKEY;
   const resp = await get(
     `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=a&page=1&include_adult=false`
   );
 
-  const { results } = resp.data;
+  const darkModeSer = context.req.cookies.dark || false;
 
+  console.log(darkModeSer);
+
+  const { results } = resp.data;
   return {
     props: {
       results,
+      darkModeSer,
     },
   };
 };
@@ -62,8 +66,8 @@ const blurURL = `data:image/svg+xml;base64,${toBase64(convertImage(700, 475))}`;
 
 //
 //
-export default function Home({ results }) {
-  const [darkMode, setDarkMode] = useState(getCookie("dark") || false);
+export default function Home({ results, darkModeSer }) {
+  const [darkMode, setDarkMode] = useState(darkModeSer);
 
   const handleDarkMode = () => {
     setCookie("dark", !darkMode);
@@ -72,7 +76,7 @@ export default function Home({ results }) {
 
   return (
     results && (
-      <div data-dark={getCookie("dark")}>
+      <div data-dark={darkMode}>
         <header className="header">
           {!darkMode && (
             <button onClick={handleDarkMode} className="dark_mode_button">
