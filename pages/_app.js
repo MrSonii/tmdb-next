@@ -2,6 +2,7 @@ import { Provider } from "react-redux";
 
 import store from "../store/store";
 import "../styles/globals.css";
+import "../pageStyles/Home.css";
 
 function MyApp({ Component, pageProps }) {
   return (
